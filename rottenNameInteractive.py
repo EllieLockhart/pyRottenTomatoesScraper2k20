@@ -12,7 +12,7 @@
 # for a particular film so that further scraping queries can be attempted
 
 # basic imports from libraries
-from lxml.html.soupparser import fromstring
+#from lxml.html.soupparser import fromstring
 # root = fromstring(tag_soup)
 from bs4 import BeautifulSoup
 import requests
@@ -30,11 +30,11 @@ while findMovie is 1:
 
     # fetch raw HTML from Rotten Tomatoes search page for the film title
     # being queried
-    html_content = requests.get(nowQueryBS4URL).text
+    html_content = requests.get(rtSearchURL).text
 
     # parse the RottenTomatoes results into readable form
-    soup = BeautifulSoup(features="lxml")
-    results = soup.find_all("a", {"class" : "info-name"})
-    for result in results :
-     if len(result.attrs) == 1 :
-        print(result)
+    soup = BeautifulSoup(html_content)
+    print(soup.text)
+    results = soup.find_all("a", {"data-qa" : "info-name"})
+    print(len(results))
+    print(rtSearchURL)
